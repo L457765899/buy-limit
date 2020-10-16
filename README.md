@@ -2,9 +2,12 @@
 优惠限购功能
 
 ```she
-直接使用docker-compose在docker-compose目录下执行 docker-compose up -d 就可直接运行
+容器方式运行，不用下载代码
+1.将docker-compose目录拷贝到有docker-compose环境的机器上
+2.直接使用在docker-compose目录下执行 docker-compose up -d 就可直接运行
 
-idea中使用maven命令运行 mvn spring-boot:run
+开发工具idea中运行
+1.使用maven命令运行 mvn spring-boot:run
 ```
 
 提供一个简单的测试页面 http://localhost:8080/
