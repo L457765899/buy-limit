@@ -1,19 +1,22 @@
-# buy-limit
-优惠限购功能
+/*
+ Navicat MySQL Data Transfer
 
-```she
-直接使用docker-compose在docker-compose目录下执行 docker-compose up -d 就可直接运行
+ Source Server         : 192.168.227.1
+ Source Server Type    : MySQL
+ Source Server Version : 50727
+ Source Host           : 192.168.227.1:3306
+ Source Schema         : buy
 
-idea中使用maven命令运行 mvn spring-boot:run
-```
+ Target Server Type    : MySQL
+ Target Server Version : 50727
+ File Encoding         : 65001
 
-提供一个简单的测试页面 http://localhost:8080/
+ Date: 16/10/2020 19:46:09
+*/
 
-![测试页面](1.png)
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 
-数据库使用mysql，建表语句如下
-
-```sql
 CREATE DATABASE `buy` CHARACTER SET 'utf8mb4';
 
 USE buy;
@@ -56,5 +59,5 @@ CREATE TABLE `orders` (
 
 INSERT INTO `goods`(name, stock_count, special_count, user_discount_count, saled_count, price, special_price) VALUES ('测试商品A', 100, 20, 3, 0, 10, 6);
 INSERT INTO `goods`(name, stock_count, special_count, user_discount_count, saled_count, price, special_price) VALUES ('测试商品B', 100, 20, 3, 0, 10, 6);
-```
 
+SET FOREIGN_KEY_CHECKS = 1;
