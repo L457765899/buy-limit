@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lin.buy.limit.db.dao.GoodsMapper">
+  <resultMap id="BaseResultMap" type="com.lin.buy.limit.db.entity.Goods">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="stock_count" jdbcType="INTEGER" property="stockCount" />
+    <result column="special_count" jdbcType="INTEGER" property="specialCount" />
+    <result column="user_discount_count" jdbcType="INTEGER" property="userDiscountCount" />
+    <result column="saled_count" jdbcType="INTEGER" property="saledCount" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="special_price" jdbcType="INTEGER" property="specialPrice" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, name, stock_count, special_count, user_discount_count, saled_count, price, special_price, version
+  </sql>
+
+  <update id="cutStockCount" parameterType="map">
+    update goods set
+      stock_count = stock_count - #{allCount},
+      special_count = special_count - #{specialCount},
+      saled_count = saled_count + #{allCount},
+      version = version + 1
+      where
+        id = #{id}
+        and stock_count = #{oldStockCount}
+        and special_count = #{oldSpecialCount}
+        and saled_count = #{oldSaledCount}
+        and version = #{version}
+  </update>
+  
+  <select id="selectByPrimaryKeyAndLock" parameterType="int" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List"/>
+    from goods
+    where id = #{id} for update
+  </select>
+
+</mapper>

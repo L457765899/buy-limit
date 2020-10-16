@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        p {
+            font-size:35px;
+            margin: 0px;
+        }
+        input {
+            width:100px;
+            height:40px;
+        }
+        div {
+            margin-top:10px;
+        }
+        button {
+            width:100px;
+            height:40px;
+        }
+    </style>
+    <script type="text/javascript" src="js/jQuery-2.1.4.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $.ajax({
+                type:"get",
+                url: "goods/getList.json",
+                dataType: "json",
+                success: function(data){
+                    if(data.success){
+                        $.each(data.datas,function(index,goods) {
+                            var id = goods.id + "_" + goods.price + "_" + goods.specialPrice + "_" + goods.name
+                            $('#content').append('<p>' + goods.name + '/总库存' + goods.stockCount
+                            + '/特价库存' + goods.specialCount + '</p>'
+                            + '<input type="hidden" value="' + id + '"/>'
+                            + '<input type="text" placeholder="购买特价数量"/> <input type="text" placeholder="购买原价数量"/>'
+                            + ' <button type="button" class="sub">提交</button>');
+                        });
+                    }else{
+                        alert(data.errMsg);
+                    }
+
+                    $('button').click(function(){
+                        var ar = $(this).prev().prev().prev().val().split("_");
+                        var originalCount = $(this).prev().val();
+                        var specialCount = $(this).prev().prev().val();
+                        var userId = $('#userId').val();
+                        if(originalCount == '' || specialCount == '' || userId == '') {
+                            alert("有数据为空");
+                            return;
+                        }
+
+                        var goodsId = ar[0];
+                        var allCount = parseInt(originalCount) + parseInt(specialCount);
+                        var price = parseInt(ar[1]);
+                        var specialPrice = parseInt(ar[2]);
+                        var allPrice = parseInt(originalCount) * price + parseInt(specialCount) * specialPrice;
+                        var info = ar[3];
+
+                        var param = {
+                            userId:userId,
+                            originalCount:originalCount,
+                            specialCount:specialCount,
+                            goodsId:goodsId,
+                            allCount:allCount,
+                            allPrice:allPrice,
+                            info:info
+                        }
+                        console.log(param);
+
+                        $.ajax({
+                            type:"post",
+                            url: "order/add.json",
+                            dataType: "json",
+                            data:param,
+                            success: function(data){
+                                alert(data.errMsg);
+                                location.reload();
+                            }
+                        });
+                    });
+                }
+            });
+        });
+</script>
+</head>
+<body>
+<form>
+    <input type="text" id="userId" placeholder="填写用户ID数字"/>每个用户前3件可参与优惠，输入框不能填负数
+    <div id="content">
+    </div>
+</form>
+</body>
+</html>
