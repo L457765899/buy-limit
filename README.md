@@ -1,6 +1,10 @@
 # buy-limit
 优惠限购功能
 
+```she
+可以使用maven命令运行 mvn spring-boot:run
+```
+
 提供一个简单的测试页面 http://localhost:8080/
 
 ![测试页面](1.png)
