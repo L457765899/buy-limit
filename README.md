@@ -7,7 +7,8 @@
 2.直接使用在docker-compose目录下执行 docker-compose up -d 就可直接运行
 
 开发工具idea中运行
-1.使用maven命令运行 mvn spring-boot:run
+1.需要手动创建下面的数据库表
+2.使用maven命令运行 mvn spring-boot:run
 ```
 
 提供一个简单的测试页面 http://localhost:8080/
