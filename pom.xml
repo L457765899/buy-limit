@@ -14,6 +14,7 @@
     <groupId>com.lin.buy.limit</groupId>
     <artifactId>buy-limit</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
     <build>
         <plugins>
